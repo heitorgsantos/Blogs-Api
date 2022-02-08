@@ -1,12 +1,10 @@
-const express = require('express');
+// const express = require('express');
 // const alert = require('../middlewares/error.js');
 const { validationData } = require('../middlewares/validation');
 const { Users } = require('../models');
 
-const router = express.Router();
-
 // cadastra um novo usuario
-router.post('/', async (req, res) => {
+const create = async (req, res) => {
   const { displayName, email, password, image } = req.body;
 
   const { error } = validationData(displayName, email, password);
@@ -20,8 +18,23 @@ router.post('/', async (req, res) => {
     }
   }
   return res.status(400).json({ message: error.message });
-});
+};
+
+const findAllUsers = async (req, res) => {
+  // const { displayName, email, image } = req.body;
+  // const { id } = req.params;
+
+  try {
+    const findUsers = await Users.findAll();
+    return res.status(200).json(findUsers);
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
 
 // login user
 
-module.exports = router;
+module.exports = {
+  create,
+  findAllUsers,
+};
