@@ -19,7 +19,7 @@ const validationData = (displayName, email, password) => {
 };
 
 const validateLogin = (email, password) => {
-  const loginSchema = Joi.object({
+  const userSchema = Joi.object({
     email: Joi.string().email().empty().required()
 .messages({
       'string.empty': '"email" is not allowed to be empty', 
@@ -32,8 +32,8 @@ const validateLogin = (email, password) => {
       'string.empty': '"password" is not allowed to be empty',
     }),
   });
-
-  return loginSchema.validate({ email, password });
+  console.log(email, 'entrou email');
+  return userSchema.validate({ email, password });
 };
 
   module.exports = { validationData, validateLogin };
