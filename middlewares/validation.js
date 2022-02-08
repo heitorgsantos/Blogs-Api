@@ -1,3 +1,4 @@
+const { required } = require('@hapi/joi');
 const Joi = require('@hapi/joi');
 
 const validationData = (displayName, email, password) => {
@@ -36,4 +37,14 @@ const validateLogin = (email, password) => {
   return userSchema.validate({ email, password });
 };
 
-  module.exports = { validationData, validateLogin };
+const validateCategorie = (name) => {
+  const categorieSchema = Joi.object({
+    name: Joi.string().empty().required().messages({
+      'string.empty': '"name" is required',
+      'any.required': '"name" is required',
+    }),
+  });
+  return categorieSchema.validate({ name });
+};
+
+  module.exports = { validationData, validateLogin, validateCategorie };
