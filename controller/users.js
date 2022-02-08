@@ -5,6 +5,7 @@ const { Users } = require('../models');
 
 const router = express.Router();
 
+// cadastra um novo usuario
 router.post('/', async (req, res) => {
   const { displayName, email, password, image } = req.body;
 
@@ -20,5 +21,7 @@ router.post('/', async (req, res) => {
   }
   return res.status(400).json({ message: error.message });
 });
+
+// login user
 
 module.exports = router;

@@ -18,4 +18,22 @@ const validationData = (displayName, email, password) => {
   return userSchema.validate({ displayName, email, password });
 };
 
-  module.exports = { validationData };
+const validateLogin = (email, password) => {
+  const loginSchema = Joi.object({
+    email: Joi.string().email().empty().required()
+.messages({
+      'string.empty': '"email" is not allowed to be empty', 
+      'any.required': '"email" is required',
+    }),
+    password: Joi.string().length(6).empty().required()
+.messages({
+      'any.required': '"password" is required',
+      'string.length': '"password" length must be 6 characters long',
+      'string.empty': '"password" is not allowed to be empty',
+    }),
+  });
+
+  return loginSchema.validate({ email, password });
+};
+
+  module.exports = { validationData, validateLogin };
