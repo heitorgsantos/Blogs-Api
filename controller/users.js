@@ -32,9 +32,20 @@ const findAllUsers = async (req, res) => {
   }
 };
 
+const findId = async (req, res) => {
+  // const { id } = req.params;
+  try {
+    const findUserId = await Users.findByPk(req.params.id);
+    if (!findUserId) return res.status(404).json({ message: 'User does not exist' });
+    res.status(200).json(findUserId);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
 // login user
 
 module.exports = {
   create,
   findAllUsers,
+  findId,
 };
