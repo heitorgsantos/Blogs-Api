@@ -1,4 +1,3 @@
-const { required } = require('@hapi/joi');
 const Joi = require('@hapi/joi');
 
 const validationData = (displayName, email, password) => {

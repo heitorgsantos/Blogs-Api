@@ -17,6 +17,16 @@ const createCategorie = async (req, res) => {
   return res.status(400).json({ message: error.message });
 };
 
+const findAllCategories = async (_req, res) => {
+  try {
+    const findCategories = await Categories.findAll();
+    return res.status(200).json(findCategories);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   createCategorie,
+  findAllCategories,
 };
