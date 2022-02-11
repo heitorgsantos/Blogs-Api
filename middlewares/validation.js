@@ -10,6 +10,7 @@ const validationData = (displayName, email, password) => {
       'any.required': '"email" is required',
     }),
     password: Joi.string().min(6).required().messages({
+      
       'string.min': '"password" length must be 6 characters long',
       'any.required': '"password" is required',
     }),
@@ -19,7 +20,7 @@ const validationData = (displayName, email, password) => {
 };
 
 const validateLogin = (email, password) => {
-  const userSchema = Joi.object({
+  const userSchema = Joi.object({ 
     email: Joi.string().email().empty().required()
 .messages({
       'string.empty': '"email" is not allowed to be empty', 
@@ -46,4 +47,22 @@ const validateCategorie = (name) => {
   return categorieSchema.validate({ name });
 };
 
-  module.exports = { validationData, validateLogin, validateCategorie };
+const validatePost = (title, content, categoryIds) => {
+  const blogSchema = Joi.object({
+    title: Joi.string().required().messages({
+      'string.empty': '"title" is required',
+      'any.required': '"title" is required',
+    }),
+    content: Joi.string().empty().required().messages({
+      'string.empty': '"content" is required',
+      'any.required': '"content" is required',
+    }),
+    categoryIds: Joi.array().empty().required().messages({
+      'any.required': '"categoryIds" is required',
+    }),
+  });
+
+  return blogSchema.validate({ title, content, categoryIds });
+};
+
+  module.exports = { validationData, validateLogin, validateCategorie, validatePost };
