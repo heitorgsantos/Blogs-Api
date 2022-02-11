@@ -1,8 +1,8 @@
 const express = require('express');
-const user = require('./routes/users');
-const routes = require('./routes/login');
-const categoriesRouter = require('./routes/categories');
-const blogPosts = require('./routes/blogPost');
+const user = require('./routes/usersRouter');
+const routes = require('./routes/loginRouter');
+const categoriesRouter = require('./routes/categoriesRouter');
+const blogPosts = require('./routes/blogPostRouter');
 
 const app = express();
 

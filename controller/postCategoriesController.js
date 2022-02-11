@@ -1,5 +1,5 @@
 const { validatePost } = require('../middlewares/validation');
-const { BlogPosts, Categories } = require('../models');
+const { BlogPosts, Categories, Users } = require('../models');
 
 const verifyCategory = async (category) => {
   const categories = await Categories.findAll({ where: { id: category } });
@@ -25,8 +25,22 @@ const blogPosts = async (req, res) => {
   }
     return res.status(201).json(blog);
   } catch (err) {
-    console.log(err.message, 'entrou no cath');
+    console.log(err.message);
+  }
+}; 
+
+const findAllPosts = async (_req, res) => {
+  try {
+    const findAllPostCategories = await BlogPosts.findAll({
+      include: [
+        { model: Categories, as: 'categories' },
+        { model: Users, as: 'user', attributes: { exclude: ['password'] } },
+      ],
+    });
+    return res.status(200).json(findAllPostCategories);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
   }
 };
 
-module.exports = blogPosts;
+module.exports = { blogPosts, findAllPosts };
