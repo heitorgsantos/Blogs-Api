@@ -33,7 +33,9 @@ const findAllPosts = async (_req, res) => {
   try {
     const findAllPostCategories = await BlogPosts.findAll({
       include: [
-        { model: Categories, as: 'categories' },
+        { 
+          model: Categories,
+          as: 'categories' },
         { model: Users, as: 'user', attributes: { exclude: ['password'] } },
       ],
     });
